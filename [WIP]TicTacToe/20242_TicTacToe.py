@@ -3,7 +3,7 @@
 # board_size = (board_length, board_height)
 board_size = (3, 5)
 board = [" "] * board_size[0] * board_size[1]
-end_condition = False  # if True, end game
+end_condition = False  # if 0, draw, if 1, win by a player
 game_key = [0]
 win_condition_in_a_row = 3 #change if want to change game
 flag = 0
