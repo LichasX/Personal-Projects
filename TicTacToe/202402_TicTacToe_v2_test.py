@@ -60,7 +60,7 @@ def win_check():
                 if new_board[y_value][x_value] == "X":
                     flag = "X"
                 else:
-                       flag = "O"
+                    flag = "O"
 
 
 while not end_condition:
