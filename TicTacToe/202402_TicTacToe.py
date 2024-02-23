@@ -4,8 +4,6 @@ board_size = (board_length, board_height)
 board = [" "] * board_size[0] * board_size[1]
 end_condition = False  # if 0, draw, if 1, win by a player
 game_key = [0]
-win_condition_in_a_row = 3 #change if want to change game
-flag = 0
 
 
 def print_board():
@@ -27,19 +25,18 @@ def turn_rotation(game_round):
 
 
 def win_check():
-    global end_condition
-    global flag
+    global end_condition, flag
     new_board = []
-    if game_key[0] == board_size[0] * board_size[1]: # all squares are filled
-        end_condition = 0
-    for z in range(board_size[1]): # iterates through all row
+    if game_key[0] == board_size[0] * board_size[1]:  # all squares are filled
+        end_condition = 2
+    for z in range(board_size[1]):  # iterates through all row
         output2 = ""
-        for i in range(board_size[0]): # each row
-            output2 += board[i+(z*board_size[0])] # i is the number in specific row and the others is accounting for previous rows
-        new_board.append(output2) #new_board is an optimised version of board to check for win
-    for y_value in range(board_size[1]): # used to run through each item in list new_board
-        for x_value in range(board_size[0]): #used to run through each item in each item in new_board
-            try: #will error when index becomes too high
+        for i in range(board_size[0]):  # each row
+            output2 += board[i+(z*board_size[0])]  # i is the number in specific row and the others is accounting for previous rows
+        new_board.append(output2)  # new_board is an optimised version of board to check for win
+    for y_value in range(board_size[1]):  # used to run through each item in list new_board
+        for x_value in range(board_size[0]):  # used to run through each item in each item in new_board
+            try: # will error when index becomes too high
                 if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value] == new_board[y_value+2][x_value]:
                     end_condition = 1
                     if new_board[y_value][x_value] == "X":
@@ -48,8 +45,6 @@ def win_check():
                         flag = "O"
             except IndexError:
                 pass
-    for y_value in range(board_size[1]):
-        for x_value in range(board_size[0]):
             try:
                 if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value][x_value+1] == new_board[y_value][x_value+2]:
                     end_condition = 1
@@ -59,6 +54,25 @@ def win_check():
                         flag = "O"
             except IndexError:
                 pass
+            try:
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value+1] == new_board[y_value+2][x_value+2]: # diagonal top left to bottom right
+                    end_condition = 1
+                    if new_board[y_value][x_value] == "X":
+                        flag = "X"
+                    else:
+                        flag = "O"
+            except IndexError:
+                pass
+            try:
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value + 1][x_value - 1] == new_board[y_value + 2][x_value - 2]: # diagonal bottom left to top right, keep separate from diagonal left to right as index error will cause it to not check if placed in same try: :/
+                    end_condition = 1
+                    if new_board[y_value][x_value] == "X":
+                        flag = "X"
+                    else:
+                        flag = "O"
+            except IndexError:
+                pass
+
 
 
 while not end_condition:
@@ -78,7 +92,7 @@ while not end_condition:
     win_check()
 
 print_board()
-if end_condition == 0:
+if end_condition == 2:
     print("Draw")
 elif end_condition == 1:
     if flag == "X":
