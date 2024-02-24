@@ -34,19 +34,20 @@ def win_check():
         for i in range(board_size[0]):  # each row
             output2 += board[i+(z*board_size[0])]  # i is the number in specific row and the others is accounting for previous rows
         new_board.append(output2)  # new_board is an optimised version of board to check for win
-    print(new_board)
-    for y_value in range(-2*min((board_size[1]-3), 3), board_size[1]-2):  # used to run through each item in list new_board
-        for x_value in range(-2*min((board_size[0]-3),3), board_size[0]-2):  # used to run through each item in each item in new_board, the convoluted thing is from trial and error that shifting the entire range by 2 is needed for board sizes 4 and up, but not 3 and below. min makes sure that the max it can go is 3.
-            if end_condition == 1:
-                break
-            if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value] == new_board[y_value+2][x_value]:  # vertical
-                end_condition = 1
-            elif new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value][x_value+1] == new_board[y_value][x_value+2]:  # horizontal
-                end_condition = 1
-            elif new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value+1] == new_board[y_value+2][x_value+2]:  # diagonal top left to bottom right
-                end_condition = 1
-            elif new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value + 1][x_value - 1] == new_board[y_value + 2][x_value - 2]:  # diagonal top right to bottom left
-                end_condition = 1
+    for y_value in range(board_size[1]):  # used to run through each item in list new_board
+        for x_value in range(board_size[0]):  # used to run through each item in each item in new_board
+            if not y_value + 2 >= board_size[1]:
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value] == new_board[y_value+2][x_value]:  # vertical
+                    end_condition = 1
+            if not x_value + 2 >= board_size[0]:
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value][x_value+1] == new_board[y_value][x_value+2]:  # horizontal
+                    end_condition = 1
+            if not (x_value + 2 >= board_size[0] or y_value + 2 >= board_size[1]):
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value+1][x_value+1] == new_board[y_value+2][x_value+2]:  # diagonal top left to bottom right
+                    end_condition = 1
+            if 0 <= x_value - 2 < board_size[0] and y_value + 2 < board_size[1]:
+                if new_board[y_value][x_value] != " " and new_board[y_value][x_value] == new_board[y_value + 1][x_value - 1] == new_board[y_value + 2][x_value - 2]:  # diagonal top right to bottom left
+                    end_condition = 1
             if end_condition == 1:
                 if new_board[y_value][x_value] == "X":
                     flag = "X"
