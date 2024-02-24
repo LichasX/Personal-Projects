@@ -52,10 +52,9 @@ def win_check(end_condition):
                     flag = "X"
                 elif new_board[y_value][x_value] == "O":
                     flag = "O"
-    if end_condition == 1:
-        return [end_condition, flag]
-    else:
-        return [end_condition]
+            if end_condition == 1:
+                return [end_condition, flag]
+    return [end_condition]
 
 
 while not end_condition:
