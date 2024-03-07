@@ -1,3 +1,4 @@
+# https://codebreaker.xyz/problem/lunchbox
 inputs = str(input("")).split() #(n, m)
 lst = []
 remaining_val = int(inputs[0])
@@ -10,4 +11,3 @@ while remaining_val > 0 and len(lst) > 0 and not(min(lst) > remaining_val):
     lst.remove(min(lst))
     count += 1
 print(count)
-    
